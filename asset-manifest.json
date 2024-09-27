@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/santa-giuggi/static/css/main.832c8cdb.css",
-    "main.js": "/santa-giuggi/static/js/main.e914a59a.js",
+    "main.js": "/santa-giuggi/static/js/main.b3162cb9.js",
     "static/js/453.23f7f7fc.chunk.js": "/santa-giuggi/static/js/453.23f7f7fc.chunk.js",
     "static/media/jinglebells.mp3": "/santa-giuggi/static/media/jinglebells.004eeff2fa46bbf11367.mp3",
     "static/media/christmas.jpeg": "/santa-giuggi/static/media/christmas.a283190f8a8e348bf313.jpeg",
     "index.html": "/santa-giuggi/index.html",
     "main.832c8cdb.css.map": "/santa-giuggi/static/css/main.832c8cdb.css.map",
-    "main.e914a59a.js.map": "/santa-giuggi/static/js/main.e914a59a.js.map",
+    "main.b3162cb9.js.map": "/santa-giuggi/static/js/main.b3162cb9.js.map",
     "453.23f7f7fc.chunk.js.map": "/santa-giuggi/static/js/453.23f7f7fc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.832c8cdb.css",
-    "static/js/main.e914a59a.js"
+    "static/js/main.b3162cb9.js"
   ]
 }
