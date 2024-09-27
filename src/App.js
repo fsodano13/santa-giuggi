@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import './App.css';
-import jingleBells from './jinglebells.mp3'; // Aggiungi qui il file mp3
-import silentNight from './silentnight.mp3';  // Aggiungi questo file
-import weWishYouAMerryChristmas from './wewishyouamerrychristmas.mp3';  // Aggiungi questo file
-import christmasTree from './christmas.jpeg'; // Aggiungi qui l'immagine natalizia
-// Importa le icone (assicurati di averle installate con npm install react-icons)
+import jingleBells from './jingleBells.mp3';
+import silentNight from './silentNight.mp3';
+import weWishYouAMerryChristmas from './weWishYouAMerryChristmas.mp3';
+import giuggi from './giuggi.jpeg';
 import { FaStepBackward, FaStepForward } from 'react-icons/fa';
 
 const App = () => {
@@ -198,7 +197,7 @@ const App = () => {
             <FaStepBackward />
           </button>
           <img 
-            src={christmasTree} 
+            src={giuggi} 
             alt="Christmas Tree" 
             className={`christmas-tree ${isPlaying ? 'playing' : ''} ${isLoading ? 'loading' : ''}`}
             onClick={toggleMusic}
