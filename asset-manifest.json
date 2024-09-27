@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/fsodano13/santa-giuggi/static/css/main.832c8cdb.css",
+    "main.js": "/fsodano13/santa-giuggi/static/js/main.bbce8ef8.js",
+    "static/js/453.23f7f7fc.chunk.js": "/fsodano13/santa-giuggi/static/js/453.23f7f7fc.chunk.js",
+    "static/media/jinglebells.mp3": "/fsodano13/santa-giuggi/static/media/jinglebells.004eeff2fa46bbf11367.mp3",
+    "static/media/christmas.jpeg": "/fsodano13/santa-giuggi/static/media/christmas.a283190f8a8e348bf313.jpeg",
+    "index.html": "/fsodano13/santa-giuggi/index.html",
+    "main.832c8cdb.css.map": "/fsodano13/santa-giuggi/static/css/main.832c8cdb.css.map",
+    "main.bbce8ef8.js.map": "/fsodano13/santa-giuggi/static/js/main.bbce8ef8.js.map",
+    "453.23f7f7fc.chunk.js.map": "/fsodano13/santa-giuggi/static/js/453.23f7f7fc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.832c8cdb.css",
+    "static/js/main.bbce8ef8.js"
+  ]
+}
