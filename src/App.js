@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import './App.css';
 import jingleBells from './jinglebells.mp3'; // Aggiungi qui il file mp3
 import silentNight from './silentnight.mp3';  // Aggiungi questo file
 import weWishYouAMerryChristmas from './wewishyouamerrychristmas.mp3';  // Aggiungi questo file
 import christmasTree from './christmas.jpeg'; // Aggiungi qui l'immagine natalizia
+// Importa le icone (assicurati di averle installate con npm install react-icons)
+import { FaStepBackward, FaStepForward } from 'react-icons/fa';
 
 const App = () => {
   const [timeUntilChristmas, setTimeUntilChristmas] = useState({
@@ -14,120 +16,208 @@ const App = () => {
   });
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentSongName, setCurrentSongName] = useState('');
   const audioRef = useRef(null);
+  const [audioLoaded, setAudioLoaded] = useState(false);
 
-  const christmasSongs = [jingleBells, silentNight, weWishYouAMerryChristmas];
+  const christmasSongs = useMemo(() => [
+    { src: jingleBells, name: 'Jingle Bells' },
+    { src: silentNight, name: 'Silent Night' },
+    { src: weWishYouAMerryChristmas, name: 'We Wish You a Merry Christmas' }
+  ], []);
+
+  const handleSongEnd = useCallback(() => {
+    setCurrentSongIndex((prevIndex) => (prevIndex + 1) % christmasSongs.length);
+  }, [christmasSongs]);
 
   useEffect(() => {
-    // Aggiungi questo effetto per cambiare il titolo della pagina
-    document.title = "Santa Giuggi";
+    setCurrentSongName(christmasSongs[currentSongIndex].name);
+  }, [currentSongIndex, christmasSongs]);
 
+  useEffect(() => {
+    const audio = new Audio(christmasSongs[currentSongIndex].src);
+    audio.addEventListener('canplaythrough', () => setAudioLoaded(true));
+    audio.addEventListener('ended', handleSongEnd);
+    audioRef.current = audio;
+
+    if (isPlaying) {
+      audio.play().catch(error => console.error("Playback error:", error));
+    }
+
+    return () => {
+      audio.removeEventListener('canplaythrough', () => setAudioLoaded(true));
+      audio.removeEventListener('ended', handleSongEnd);
+      audio.pause();
+    };
+  }, [christmasSongs, currentSongIndex, handleSongEnd, isPlaying]);
+
+  useEffect(() => {
     const calculateTimeUntilChristmas = () => {
-      const today = new Date();
-      const currentYear = today.getFullYear();
-      const christmasDate = new Date(currentYear, 11, 20, 13, 25); // Dicembre, 13:25
+      const now = new Date();
+      const currentYear = now.getFullYear();
 
-      if (today > christmasDate) {
-        christmasDate.setFullYear(currentYear + 1); // Se Natale è già passato, calcola per l'anno successivo
+      const christmasDate = new Date(currentYear, 11, 20, 13, 25); // 20 dicembre alle 13:25
+      if (now > christmasDate) {
+        christmasDate.setFullYear(currentYear + 1);
       }
 
-      const timeDifference = christmasDate - today;
+      const difference = christmasDate - now;
 
-      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((timeDifference / 1000 / 60) % 60);
-      const seconds = Math.floor((timeDifference / 1000) % 60);
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((difference / 1000 / 60) % 60);
+      const seconds = Math.floor((difference / 1000) % 60);
 
-      setTimeUntilChristmas({ days, hours, minutes, seconds });
+      setTimeUntilChristmas({
+        days,
+        hours,
+        minutes,
+        seconds,
+      });
     };
 
     calculateTimeUntilChristmas();
-    const interval = setInterval(calculateTimeUntilChristmas, 1000); // Aggiorna ogni secondo
+    const interval = setInterval(calculateTimeUntilChristmas, 1000);
 
-    return () => clearInterval(interval); // Pulisce l'intervallo quando il componente viene smontato
+    return () => clearInterval(interval);
   }, []);
 
-  // Funzione per generare fiocchi di neve
+  const toggleMusic = async () => {
+    if (audioRef.current && audioLoaded && !isLoading) {
+      setIsLoading(true);
+      try {
+        if (isPlaying) {
+          await audioRef.current.pause();
+        } else {
+          await audioRef.current.play();
+        }
+        setIsPlaying(!isPlaying);
+      } catch (error) {
+        console.error("Playback error:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const prevSong = () => {
+    setCurrentSongIndex((prevIndex) => 
+      (prevIndex - 1 + christmasSongs.length) % christmasSongs.length
+    );
+  };
+
+  const nextSong = () => {
+    setCurrentSongIndex((prevIndex) => (prevIndex + 1) % christmasSongs.length);
+  };
+
   const generateSnowflakes = () => {
     const snowflakes = [];
-    for (let i = 0; i < 50; i++) {
+    const numberOfSnowflakes = 50; // Puoi regolare questo numero
+
+    for (let i = 0; i < numberOfSnowflakes; i++) {
+      const left = `${Math.random() * 100}%`;
+      const animationDuration = `${Math.random() * 10 + 5}s`; // Da 5 a 15 secondi
+      const opacity = Math.random() * 0.5 + 0.5; // Aumenta l'opacità minima
+      const fontSize = `${Math.random() * 20 + 10}px`; // Da 10px a 30px
+
       snowflakes.push(
-        <div 
-          key={i} 
-          className="snowflake" 
+        <div
+          key={i}
           style={{
-            left: `${Math.random() * 100}vw`, 
-            animationDelay: `${Math.random() * 10}s`,
-            animationDuration: `${5 + Math.random() * 5}s`,
+            position: 'absolute',
+            left,
+            top: '-20px',
+            fontSize,
+            opacity,
+            color: 'white', // Imposta il colore a bianco
+            animation: `fall ${animationDuration} linear infinite`,
           }}
-        />
+        >
+          ❄
+        </div>
       );
     }
+
     return snowflakes;
   };
 
-  const toggleMusic = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        setCurrentSongIndex((prevIndex) => (prevIndex + 1) % christmasSongs.length);
-        audioRef.current.src = christmasSongs[(currentSongIndex + 1) % christmasSongs.length];
-        audioRef.current.play().catch(error => {
-          console.error("Playback prevented:", error);
-        });
-      }
-      setIsPlaying(!isPlaying);
+  // Effetto neve
+  const createSnowflakes = () => {
+    const snowflakes = [];
+    const numberOfSnowflakes = 50;
+
+    for (let i = 0; i < numberOfSnowflakes; i++) {
+      snowflakes.push(
+        <div
+          key={i}
+          className="snowflake"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 5}s`,
+            fontSize: `${Math.random() * 10 + 10}px`
+          }}
+        >
+          ❄
+        </div>
+      );
     }
+
+    return snowflakes;
   };
 
   return (
-    <div className="App">
-      <h1 style={{ 
-        fontSize: '1.2rem', 
-        color: '#ff0000', 
-        lineHeight: '1.1',
-      }}>
-        🎄 Christmas Holidays Countdown 🎄
-      </h1>
+    <>
+      {createSnowflakes()}
+      <div className="App">
+        <h1 className="app-title">
+          🎄 Christmas Holidays 🎄
+        </h1>
 
-      <img 
-        src={christmasTree} 
-        alt="Christmas Tree" 
-        className="christmas-tree" 
-        style={{ 
-          maxWidth: '70%', 
-          height: 'auto', 
-          maxHeight: '40vh',
-          cursor: 'pointer',
-          border: isPlaying ? '3px solid gold' : 'none', // Feedback visivo
-        }} 
-        onClick={toggleMusic} // Aggiunge l'evento onClick
-      />
-
-      <div className="countdown" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-        {['days', 'hours', 'minutes', 'seconds'].map((unit) => (
-          <div key={unit} className="time-block" style={{ margin: '3px', minWidth: '50px' }}>
-            <span className="time" style={{ fontSize: '1.3rem' }}>{timeUntilChristmas[unit]}</span>
-            <span className="label" style={{ fontSize: '0.7rem' }}>{unit.charAt(0).toUpperCase() + unit.slice(1)}</span>
+        <div className="countdown">
+          <div className="countdown-item">
+            <span className="countdown-value">{timeUntilChristmas.days}</span>
+            <span className="countdown-label">Days</span>
           </div>
-        ))}
-      </div>
+          <div className="countdown-item">
+            <span className="countdown-value">{timeUntilChristmas.hours}</span>
+            <span className="countdown-label">Hours</span>
+          </div>
+          <div className="countdown-item">
+            <span className="countdown-value">{timeUntilChristmas.minutes}</span>
+            <span className="countdown-label">Minutes</span>
+          </div>
+          <div className="countdown-item">
+            <span className="countdown-value">{timeUntilChristmas.seconds}</span>
+            <span className="countdown-label">Seconds</span>
+          </div>
+        </div>
 
-      {/* Modifica l'elemento audio */}
-      <audio 
-        ref={audioRef} 
-        src={christmasSongs[currentSongIndex]} 
-        onEnded={() => setCurrentSongIndex((prevIndex) => (prevIndex + 1) % christmasSongs.length)}
-      />
+        <div className="music-controls">
+          <button onClick={prevSong} className="control-button">
+            <FaStepBackward />
+          </button>
+          <img 
+            src={christmasTree} 
+            alt="Christmas Tree" 
+            className={`christmas-tree ${isPlaying ? 'playing' : ''} ${isLoading ? 'loading' : ''}`}
+            onClick={toggleMusic}
+          />
+          <button onClick={nextSong} className="control-button">
+            <FaStepForward />
+          </button>
+        </div>
 
-      {/* Fiocchi di neve */}
-      <div className="snowflakes">
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
-          {generateSnowflakes()}
+        <div className="song-name">{currentSongName}</div>
+
+        {/* Fiocchi di neve */}
+        <div className="snowflakes">
+          <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
+            {generateSnowflakes()}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

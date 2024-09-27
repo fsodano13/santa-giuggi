@@ -1,96 +1,181 @@
-@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap');
 
 body {
+  font-family: 'Mountains of Christmas', cursive;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: 'Mountains of Christmas', cursive;
-  background: #002b36; /* Sfondo scuro per l'effetto neve */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a2a3a;  /* Blu notte più delicato */
+  overflow: hidden;
 }
 
 .App {
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 20px;
-  padding: 30px;
-  margin: 50px auto;
-  width: 80%;
-  max-width: 600px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  padding: 2vw;
+  max-width: 90vw;
+  width: 100%;
   position: relative;
-}
-
-h1 {
-  font-size: 3rem;
-  color: #f44336;
-  text-shadow: 2px 2px 8px #ffcc00;
-  margin: 0;
-}
-
-.christmas-tree {
-  width: 200px;
-  height: auto;
-  margin: 20px auto;
-  display: block;
-}
-
-.countdown {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.time-block {
+  z-index: 1;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.time {
-  font-size: 3rem;
-  color: #28a745;
-  text-shadow: 2px 2px 8px #ffcc00;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #fff8dc;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.app-title, .countdown-value, .countdown-label, .song-name {
+  color: #FF4040;  /* Rosso più chiaro */
+  text-transform: uppercase;  /* Tutto in maiuscolo */
 }
 
-.label {
-  font-size: 1.5rem;
-  color: #f44336;
-  margin-top: 5px;
+.app-title {
+  font-size: clamp(1.2rem, 4vw, 2rem);  /* Titolo più piccolo */
+  line-height: 1.1;
+  margin-bottom: 2vh;
+  font-weight: bold;
 }
 
-.snowflakes {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 1;
+.countdown {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2vw;
+  margin-bottom: 2vh;
 }
 
-.snowflake {
-  position: absolute;
-  top: -10px;
-  z-index: 2;
-  width: 20px;
-  height: 20px;
-  background: white;
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-value {
+  font-size: clamp(1rem, 4vw, 2rem);
+  font-weight: bold;
+  background-color: #f0e68c;  /* Giallo chiaro */
+  border-radius: 8px;
+  width: clamp(40px, 10vw, 60px);
+  height: clamp(40px, 10vw, 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(240, 230, 140, 0.5);
+  position: relative;
+  overflow: hidden;
+  border: 3px solid #8fbc8f;  /* Verde chiaro */
+}
+
+.countdown-label {
+  font-size: clamp(0.8rem, 3vw, 1.2rem);
+  margin-top: 0.5vh;
+  font-weight: bold;
+}
+
+.music-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3vw;
+  margin-top: 2vh;
+}
+
+.control-button {
+  background: none;
+  border: none;
+  color: #e6e6fa;  /* Lavanda chiaro */
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.control-button:hover {
+  transform: scale(1.1);
+}
+
+.christmas-tree {
+  width: clamp(80px, 20vw, 150px);
+  height: clamp(80px, 20vw, 150px);
+  cursor: pointer;
   border-radius: 50%;
-  opacity: 0.9;
-  filter: blur(1px);
-  animation: fall 10s linear infinite;
+  object-fit: cover;
+  border: 3px solid #d3a5a5;  /* Rosa antico */
 }
 
-@keyframes fall {
+.christmas-tree.playing {
+  border-color: #90ee90;  /* Verde chiaro */
+}
+
+.song-name {
+  margin-top: 1.5vh;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  font-weight: bold;
+}
+
+/* Effetto neve migliorato */
+.snowflake {
+  color: #fff;
+  font-size: 1em;
+  font-family: Arial, sans-serif;
+  text-shadow: 0 0 5px #000;
+  opacity: 0.8;
+  position: fixed;
+  top: -10%;
+  z-index: 0;
+  user-select: none;
+  cursor: default;
+  animation: snowfall 5s linear infinite;
+}
+
+@keyframes snowfall {
   0% {
     transform: translateY(0) rotate(0deg);
   }
   100% {
     transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+/* Aggiungi più fiocchi di neve con diverse animazioni */
+.snowflake:nth-of-type(2n) {
+  animation-duration: 6s;
+}
+.snowflake:nth-of-type(3n) {
+  animation-duration: 7s;
+}
+.snowflake:nth-of-type(4n) {
+  animation-duration: 8s;
+}
+.snowflake:nth-of-type(5n) {
+  animation-duration: 9s;
+}
+
+@media (max-width: 480px) {
+  .app-title {
+    font-size: 2rem;
+  }
+
+  .countdown-value {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .countdown-label {
+    font-size: 1rem;
+  }
+
+  .christmas-tree {
+    width: 100px;
+    height: 100px;
+  }
+
+  .control-button {
+    font-size: 1.5rem;
+  }
+
+  .song-name {
+    font-size: 1.2rem;
   }
 }
