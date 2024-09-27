@@ -61,7 +61,13 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1 style={{ fontSize: '1.5rem', color: '#ff0000', margin: '10px 0', lineHeight: '1.2' }}>
+      <h1 style={{ 
+        fontSize: '1.5rem', 
+        color: '#ff0000', 
+        margin: '5px 0', 
+        lineHeight: '1.1',
+        padding: '0 5px'
+      }}>
         🎄 Christmas Holidays Countdown 🎄
       </h1>
 
