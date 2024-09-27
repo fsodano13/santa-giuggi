@@ -12,6 +12,9 @@ const App = () => {
   });
 
   useEffect(() => {
+    // Aggiungi questo effetto per cambiare il titolo della pagina
+    document.title = "Santa Giuggi";
+
     const calculateTimeUntilChristmas = () => {
       const today = new Date();
       const currentYear = today.getFullYear();
@@ -58,27 +61,24 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1 style={{ fontSize: '2.5rem', color: '#ff0000' }}>🎄 Christmas Holidays Countdown🎄</h1>
+      <h1 style={{ fontSize: '1.5rem', color: '#ff0000', margin: '10px 0', lineHeight: '1.2' }}>
+        🎄 Christmas Holidays Countdown 🎄
+      </h1>
 
-      <img src={christmasTree} alt="Christmas Tree" className="christmas-tree" />
+      <img 
+        src={christmasTree} 
+        alt="Christmas Tree" 
+        className="christmas-tree" 
+        style={{ maxWidth: '70%', height: 'auto', maxHeight: '40vh' }} 
+      />
 
-      <div className="countdown">
-        <div className="time-block">
-          <span className="time">{timeUntilChristmas.days}</span>
-          <span className="label">Days</span>
-        </div>
-        <div className="time-block">
-          <span className="time">{timeUntilChristmas.hours}</span>
-          <span className="label">Hours</span>
-        </div>
-        <div className="time-block">
-          <span className="time">{timeUntilChristmas.minutes}</span>
-          <span className="label">Minutes</span>
-        </div>
-        <div className="time-block">
-          <span className="time">{timeUntilChristmas.seconds}</span>
-          <span className="label">Seconds</span>
-        </div>
+      <div className="countdown" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        {['days', 'hours', 'minutes', 'seconds'].map((unit) => (
+          <div key={unit} className="time-block" style={{ margin: '3px', minWidth: '50px' }}>
+            <span className="time" style={{ fontSize: '1.3rem' }}>{timeUntilChristmas[unit]}</span>
+            <span className="label" style={{ fontSize: '0.7rem' }}>{unit.charAt(0).toUpperCase() + unit.slice(1)}</span>
+          </div>
+        ))}
       </div>
 
       {/* Nascondere il riproduttore musicale, ma far partire la musica in automatico */}
