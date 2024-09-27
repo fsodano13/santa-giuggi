@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import jingleBells from './jinglebells.mp3'; // Aggiungi qui il file mp3
 import christmasTree from './christmas.jpeg'; // Aggiungi qui l'immagine natalizia
@@ -10,6 +10,8 @@ const App = () => {
     minutes: 0,
     seconds: 0,
   });
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     // Aggiungi questo effetto per cambiare il titolo della pagina
@@ -59,14 +61,25 @@ const App = () => {
     return snowflakes;
   };
 
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play().catch(error => {
+          console.log("Playback prevented:", error);
+        });
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
     <div className="App">
       <h1 style={{ 
-        fontSize: '1.5rem', 
+        fontSize: '1.2rem', 
         color: '#ff0000', 
-        margin: '5px 0', 
         lineHeight: '1.1',
-        padding: '0 5px'
       }}>
         🎄 Christmas Holidays Countdown 🎄
       </h1>
@@ -75,7 +88,14 @@ const App = () => {
         src={christmasTree} 
         alt="Christmas Tree" 
         className="christmas-tree" 
-        style={{ maxWidth: '70%', height: 'auto', maxHeight: '40vh' }} 
+        style={{ 
+          maxWidth: '70%', 
+          height: 'auto', 
+          maxHeight: '40vh',
+          cursor: 'pointer',
+          border: isPlaying ? '3px solid gold' : 'none', // Feedback visivo
+        }} 
+        onClick={toggleMusic} // Aggiunge l'evento onClick
       />
 
       <div className="countdown" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -88,7 +108,7 @@ const App = () => {
       </div>
 
       {/* Nascondere il riproduttore musicale, ma far partire la musica in automatico */}
-      <audio src={jingleBells} autoPlay loop style={{ display: 'none' }} />
+      <audio ref={audioRef} src={jingleBells} loop />
 
       {/* Fiocchi di neve */}
       <div className="snowflakes">
