@@ -71,11 +71,10 @@ const App = () => {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
-        // Cambia la canzone
         setCurrentSongIndex((prevIndex) => (prevIndex + 1) % christmasSongs.length);
-        audioRef.current.src = christmasSongs[currentSongIndex];
+        audioRef.current.src = christmasSongs[(currentSongIndex + 1) % christmasSongs.length];
         audioRef.current.play().catch(error => {
-          console.log("Playback prevented:", error);
+          console.error("Playback prevented:", error);
         });
       }
       setIsPlaying(!isPlaying);
@@ -115,8 +114,12 @@ const App = () => {
         ))}
       </div>
 
-      {/* Nascondere il riproduttore musicale, ma far partire la musica in automatico */}
-      <audio ref={audioRef} src={christmasSongs[currentSongIndex]} loop />
+      {/* Modifica l'elemento audio */}
+      <audio 
+        ref={audioRef} 
+        src={christmasSongs[currentSongIndex]} 
+        onEnded={() => setCurrentSongIndex((prevIndex) => (prevIndex + 1) % christmasSongs.length)}
+      />
 
       {/* Fiocchi di neve */}
       <div className="snowflakes">
