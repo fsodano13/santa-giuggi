@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import jingleBells from './jinglebells.mp3'; // Aggiungi qui il file mp3
+import silentNight from './silentnight.mp3';  // Aggiungi questo file
+import weWishYouAMerryChristmas from './wewishyouamerrychristmas.mp3';  // Aggiungi questo file
 import christmasTree from './christmas.jpeg'; // Aggiungi qui l'immagine natalizia
 
 const App = () => {
@@ -11,7 +13,10 @@ const App = () => {
     seconds: 0,
   });
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const audioRef = useRef(null);
+
+  const christmasSongs = [jingleBells, silentNight, weWishYouAMerryChristmas];
 
   useEffect(() => {
     // Aggiungi questo effetto per cambiare il titolo della pagina
@@ -66,6 +71,9 @@ const App = () => {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
+        // Cambia la canzone
+        setCurrentSongIndex((prevIndex) => (prevIndex + 1) % christmasSongs.length);
+        audioRef.current.src = christmasSongs[currentSongIndex];
         audioRef.current.play().catch(error => {
           console.log("Playback prevented:", error);
         });
@@ -108,7 +116,7 @@ const App = () => {
       </div>
 
       {/* Nascondere il riproduttore musicale, ma far partire la musica in automatico */}
-      <audio ref={audioRef} src={jingleBells} loop />
+      <audio ref={audioRef} src={christmasSongs[currentSongIndex]} loop />
 
       {/* Fiocchi di neve */}
       <div className="snowflakes">
