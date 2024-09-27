@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/santa-giuggi/static/css/main.832c8cdb.css",
-    "main.js": "/santa-giuggi/static/js/main.760f4aa3.js",
+    "main.css": "/santa-giuggi/static/css/main.d88719de.css",
+    "main.js": "/santa-giuggi/static/js/main.e97bf5d0.js",
     "static/js/453.23f7f7fc.chunk.js": "/santa-giuggi/static/js/453.23f7f7fc.chunk.js",
     "static/media/silentnight.mp3": "/santa-giuggi/static/media/silentnight.8e156d46d24340c832ed.mp3",
     "static/media/wewishyouamerrychristmas.mp3": "/santa-giuggi/static/media/wewishyouamerrychristmas.9a1cb8a52d672edbd270.mp3",
     "static/media/jinglebells.mp3": "/santa-giuggi/static/media/jinglebells.004eeff2fa46bbf11367.mp3",
     "static/media/christmas.jpeg": "/santa-giuggi/static/media/christmas.a283190f8a8e348bf313.jpeg",
     "index.html": "/santa-giuggi/index.html",
-    "main.832c8cdb.css.map": "/santa-giuggi/static/css/main.832c8cdb.css.map",
-    "main.760f4aa3.js.map": "/santa-giuggi/static/js/main.760f4aa3.js.map",
+    "main.d88719de.css.map": "/santa-giuggi/static/css/main.d88719de.css.map",
+    "main.e97bf5d0.js.map": "/santa-giuggi/static/js/main.e97bf5d0.js.map",
     "453.23f7f7fc.chunk.js.map": "/santa-giuggi/static/js/453.23f7f7fc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.832c8cdb.css",
-    "static/js/main.760f4aa3.js"
+    "static/css/main.d88719de.css",
+    "static/js/main.e97bf5d0.js"
   ]
 }
