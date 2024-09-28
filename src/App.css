@@ -20,9 +20,9 @@ body {
   position: relative;
   z-index: 1;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: flex;  /* Assicura che l'App utilizzi il layout flex */
+  flex-direction: column;  /* Dispone gli elementi in colonna */
+  align-items: center;  /* Centra gli elementi orizzontalmente */
 }
 
 .app-title, .countdown-value, .countdown-label, .song-name {
@@ -77,8 +77,8 @@ body {
   display: flex;
   align-items: center;
   gap: 2vw;  /* Aumentato per dare più spazio tra i controlli */
+  width: 100%;  /* Assicura che i controlli occupino tutta la larghezza disponibile */
   justify-content: center;  /* Centra i controlli orizzontalmente */
-  flex-grow: 0;  /* Impedisce ai controlli di occupare spazio extra */
 }
 
 .control-button {
