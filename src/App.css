@@ -77,6 +77,8 @@ body {
   display: flex;
   align-items: center;
   gap: 2vw;  /* Aumentato per dare più spazio tra i controlli */
+  justify-content: center;  /* Centra i controlli orizzontalmente */
+  flex-grow: 0;  /* Impedisce ai controlli di occupare spazio extra */
 }
 
 .control-button {
