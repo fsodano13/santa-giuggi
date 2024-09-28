@@ -76,16 +76,14 @@ body {
 .music-controls {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 3vw;
-  margin-top: 2vh;
+  gap: 2vw;  /* Aumentato per dare più spazio tra i controlli */
 }
 
 .control-button {
   background: none;
   border: none;
   color: #e6e6fa;  /* Lavanda chiaro */
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-size: clamp(2rem, 6vw, 3rem);  /* Aumentato per rendere i pulsanti più grandi */
   cursor: pointer;
   transition: transform 0.2s;
 }
@@ -95,11 +93,11 @@ body {
 }
 
 .christmas-tree {
-  width: clamp(80px, 20vw, 150px);
-  height: clamp(80px, 20vw, 150px);
+  width: clamp(160px, 40vw, 300px);  /* Raddoppiato per occupare più spazio */
+  height: clamp(160px, 40vw, 300px);  /* Raddoppiato per mantenere la proporzione */
   cursor: pointer;
-  border-radius: 50%;
-  object-fit: cover;
+  border-radius: 50%;  /* Mantiene la forma circolare */
+  object-fit: cover;  /* Assicura che l'immagine riempia il cerchio */
   border: 3px solid #d3a5a5;  /* Rosa antico */
 }
 
@@ -152,30 +150,31 @@ body {
 }
 
 @media (max-width: 480px) {
+  .App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centra orizzontalmente */
+    justify-content: flex-start;  /* Allinea gli elementi in alto */
+  }
+
   .app-title {
-    font-size: 2rem;
+    font-size: 1.5rem;  /* Ridotto per rendere il titolo più piccolo */
+    margin-bottom: 1vh; 
+    margin-top: 10vh; 
+    justify-content: center;/* Margine per distanziare dal countdown */
   }
 
-  .countdown-value {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
+  
+
+  .music-controls {
+    flex-grow: 1;  /* Permette al music controls di occupare tutto lo spazio rimanente */
+    display: flex;  /* Assicura che i controlli siano centrati orizzontalmente */
   }
 
-  .countdown-label {
-    font-size: 1rem;
-  }
-
-  .christmas-tree {
-    width: 100px;
-    height: 100px;
-  }
-
-  .control-button {
-    font-size: 1.5rem;
-  }
-
-  .song-name {
-    font-size: 1.2rem;
+  .music-controls img {
+    width: 75%;
+    height: 75%;  /* Aumentato per rendere l'immagine più grande */
+    border-radius: 30px;  /* Bordo arrotondato per un effetto rettangolare */
+    object-fit: cover;  /* Assicura che l'immagine riempia il contenitore */
   }
 }
