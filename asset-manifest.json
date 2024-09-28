@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/santa-giuggi/static/css/main.83199f99.css",
+    "main.css": "/santa-giuggi/static/css/main.27a227ac.css",
     "main.js": "/santa-giuggi/static/js/main.96777857.js",
     "static/js/453.23f7f7fc.chunk.js": "/santa-giuggi/static/js/453.23f7f7fc.chunk.js",
     "static/media/silentNight.mp3": "/santa-giuggi/static/media/silentNight.8e156d46d24340c832ed.mp3",
@@ -8,12 +8,12 @@
     "static/media/jingleBells.mp3": "/santa-giuggi/static/media/jingleBells.004eeff2fa46bbf11367.mp3",
     "static/media/giuggi.jpeg": "/santa-giuggi/static/media/giuggi.a283190f8a8e348bf313.jpeg",
     "index.html": "/santa-giuggi/index.html",
-    "main.83199f99.css.map": "/santa-giuggi/static/css/main.83199f99.css.map",
+    "main.27a227ac.css.map": "/santa-giuggi/static/css/main.27a227ac.css.map",
     "main.96777857.js.map": "/santa-giuggi/static/js/main.96777857.js.map",
     "453.23f7f7fc.chunk.js.map": "/santa-giuggi/static/js/453.23f7f7fc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.83199f99.css",
+    "static/css/main.27a227ac.css",
     "static/js/main.96777857.js"
   ]
 }
